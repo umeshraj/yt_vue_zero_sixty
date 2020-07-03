@@ -1,21 +1,29 @@
 <template>
-  <div class="row">
-    <div
-      class="col s6"
-      v-for="(post, index) in posts"
-      v-bind:item="post"
-      :index="index"
-      :key="post.id"
-    >
-      <div class="card">
-        <div class="card-content">
-          <p class="card-title">{{post.title}}</p>
-          <p class="timestamp">{{post.createdAt}}</p>
-          <p>{{post.body}}</p>
-        </div>
-        <div class="card-action">
-          <a href="#">Edit</a>
-          <a href="#" class="delete-btn">Delete</a>
+  <div>
+    <div class="row">
+      <div class="col s6">
+        <!-- form -->
+        <PostForm />
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="col s6"
+        v-for="(post, index) in posts"
+        v-bind:item="post"
+        :index="index"
+        :key="post.id"
+      >
+        <div class="card">
+          <div class="card-content">
+            <p class="card-title">{{post.title}}</p>
+            <p class="timestamp">{{post.createdAt}}</p>
+            <p>{{post.body}}</p>
+          </div>
+          <div class="card-action">
+            <a href="#">Edit</a>
+            <a href="#" class="delete-btn">Delete</a>
+          </div>
         </div>
       </div>
     </div>
@@ -24,9 +32,13 @@
 
 <script>
 import PostService from "../PostService";
+import PostForm from "../components/PostForm.vue";
 const postService = new PostService();
 export default {
   name: "Home",
+  components: {
+    PostForm
+  },
   data() {
     return {
       posts: []

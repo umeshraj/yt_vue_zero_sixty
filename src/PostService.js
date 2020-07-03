@@ -21,6 +21,6 @@ export default class PostService {
   }
 
   deletePost(id) {
-    return axios.delete("/post/${id}");
+    return axios.delete(`/post/${id}`);
   }
 }
