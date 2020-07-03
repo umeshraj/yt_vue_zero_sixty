@@ -13,12 +13,7 @@
 
     <div class="input-field">
       <label for="body">Body</label>
-      <input
-        type="text"
-        name="body"
-        v-model="body"
-        :class="[errors.title ? 'invalid' : 'validate']"
-      />
+      <input type="text" name="body" v-model="body" :class="[errors.body ? 'invalid' : 'validate']" />
       <span class="helper-text" data-error="Body must not be empty"></span>
     </div>
     <button type="submit" class="waves-effect waves-light btn">Add</button>
@@ -59,6 +54,7 @@ export default {
           this.loading = false;
           this.body = "";
           this.title = "";
+          this.$emit("postCreated", post);
           console.log(res.data);
         })
         .catch(err => console.log(err));

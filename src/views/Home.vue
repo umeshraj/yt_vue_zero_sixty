@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col s6">
         <!-- form -->
-        <PostForm />
+        <PostForm @postCreated="addPost" />
       </div>
     </div>
     <div class="row">
@@ -43,6 +43,11 @@ export default {
     return {
       posts: []
     };
+  },
+  methods: {
+    addPost(post) {
+      this.posts.unshift(post);
+    }
   },
   created() {
     postService
