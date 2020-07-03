@@ -2,13 +2,23 @@
   <form v-if="!loading" class="form" @submit.prevent="onSubmit">
     <div class="input-field">
       <label for="title">Title</label>
-      <input type="text" name="title" v-model="title" class="validate" />
+      <input
+        type="text"
+        name="title"
+        v-model="title"
+        :class="[errors.title ? 'invalid' : 'validate']"
+      />
       <span class="helper-text" data-error="Title must not be empty"></span>
     </div>
 
     <div class="input-field">
       <label for="body">Body</label>
-      <input type="text" name="body" v-model="body" class="validate" />
+      <input
+        type="text"
+        name="body"
+        v-model="body"
+        :class="[errors.title ? 'invalid' : 'validate']"
+      />
       <span class="helper-text" data-error="Body must not be empty"></span>
     </div>
     <button type="submit" class="waves-effect waves-light btn">Add</button>
@@ -27,12 +37,17 @@ export default {
     return {
       loading: false,
       title: "",
-      body: ""
+      body: "",
+      errors: {}
     };
   },
   methods: {
     onSubmit() {
       this.loading = true;
+      if (!this.validForm()) {
+        this.loading = false;
+        return;
+      }
       const post = {
         title: this.title,
         body: this.body
@@ -47,6 +62,23 @@ export default {
           console.log(res.data);
         })
         .catch(err => console.log(err));
+    },
+
+    validForm() {
+      this.errors = {};
+      if (this.title.trim() === "") {
+        this.errors.title = "Title";
+      }
+
+      if (this.body.trim() === "") {
+        this.errors.body = "Body";
+      }
+
+      if (Object.keys(this.errors).length > 0) {
+        return false;
+      } else {
+        return true;
+      }
     }
   }
 };
@@ -55,5 +87,8 @@ export default {
 <style scoped>
 .form {
   margin: 50px;
+}
+.progress {
+  margin: 100px 0;
 }
 </style>
