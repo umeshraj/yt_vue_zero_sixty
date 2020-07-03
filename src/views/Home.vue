@@ -21,8 +21,8 @@
             <p>{{post.body}}</p>
           </div>
           <div class="card-action">
-            <a href="#">Edit</a>
-            <a href="#" class="delete-btn">Delete</a>
+            <a href="#" @click="editPost(post)">Edit</a>
+            <a href="#" class="delete-btn" @click="deletePost(post.id)">Delete</a>
           </div>
         </div>
       </div>
@@ -47,6 +47,15 @@ export default {
   methods: {
     addPost(post) {
       this.posts.unshift(post);
+    },
+    editPost(post) {
+      console.log(post);
+    },
+    deletePost(id) {
+      postService
+        .deletePost(id)
+        .then(() => console.log("Post deleted"))
+        .catch(err => console.log(err));
     }
   },
   created() {
