@@ -54,7 +54,9 @@ export default {
     deletePost(id) {
       postService
         .deletePost(id)
-        .then(() => console.log("Post deleted"))
+        .then(() => {
+          this.posts = this.posts.filter(p => p.id !== id);
+        })
         .catch(err => console.log(err));
     }
   },
