@@ -5,6 +5,11 @@
         <!-- form -->
         <PostForm @postCreated="addPost" />
       </div>
+      <div class="col s3" style="margin:50px;">
+        <p>Limit number of posts</p>
+        <input type="number" v-model="postLimit" />
+        <button @click="setLimit()" class="waves-effect waves-light btn">Set</button>
+      </div>
     </div>
     <div class="row">
       <div
@@ -41,7 +46,8 @@ export default {
   },
   data() {
     return {
-      posts: []
+      posts: [],
+      postLimit: 5
     };
   },
   methods: {
@@ -57,6 +63,12 @@ export default {
         .then(() => {
           this.posts = this.posts.filter(p => p.id !== id);
         })
+        .catch(err => console.log(err));
+    },
+    setLimit() {
+      postService
+        .getPosts(this.postLimit)
+        .then(res => (this.posts = res.data))
         .catch(err => console.log(err));
     }
   },
