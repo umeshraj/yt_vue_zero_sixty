@@ -22,7 +22,7 @@
         <div class="card">
           <div class="card-content">
             <p class="card-title">{{post.title}}</p>
-            <p class="timestamp">{{post.createdAt}}</p>
+            <p class="timestamp">{{post.createdAt | formatDate}}</p>
             <p>{{post.body}}</p>
           </div>
           <div class="card-action">
@@ -88,6 +88,15 @@ export default {
         console.log(this.posts);
       })
       .catch(err => console.log(err));
+  },
+  filters: {
+    formatDate(date) {
+      date = new Date(date);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${day}-${month}-${year}`;
+    }
   }
 };
 </script>
